@@ -11,7 +11,7 @@ class Genres_model extends Model{
 
     function add_one($data_add) {
 
-    	$query = "INSERT INTO `$this->_table` SET `$this->_fields_gen` = ?";
+    	$query = "INSERT INTO `$this->_table` SET `genre` = ?";
     	$stmt = mysqli_prepare($this->_c, $query);
     	if ($stmt) {
             $count = count($data_add);
@@ -20,19 +20,12 @@ class Genres_model extends Model{
                 mysqli_stmt_execute($stmt);
             }
         }
-        return printf("Rows inserted: %d\n", $count);  //mysqli_stmt_affected_rows($stmt));
+        return printf("Rows inserted to table \"$this->_table\": %d\n", mysqli_stmt_affected_rows($stmt));
 	    mysqli_stmt_close($stmt);
     }
 
     function del_one($data_del) {}
 }
 
-$ob_genre = new Genres_model();
-print_r($ob_genre->get_all());
-
-$ganre = array('Повесть', 'Проза', 'Пьеса');
-
-$obj_ganre = new Genres_model();
-$obj_ganre->add_one($ganre);
 
 /// the end
